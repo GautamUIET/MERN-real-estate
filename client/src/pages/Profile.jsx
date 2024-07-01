@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { app } from '../firebase';
 import { getStorage, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { updateUserStart, updateUserSuccess, updateUserFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure,signUserStart,signUserFailure,signUserSuccess } from '../redux/user/userSlice';
-
+import {Link} from 'react-router-dom';
 const Profile = () => {
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const fileRef = useRef(null);
@@ -109,7 +109,7 @@ const Profile = () => {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -161,6 +161,9 @@ const Profile = () => {
         < button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Updating...' : 'Update'}
         </button>
+        <Link className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95' to = {"/create-listing"}>
+        Create Listing
+        </Link>
       </form>
       <div className='flex justify-between mt-3'>
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
